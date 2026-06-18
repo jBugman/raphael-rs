@@ -49,7 +49,7 @@ impl MacroSolverApp {
 
         let font_loading_state = FontLoadingState::new(&cc.egui_ctx, app_context.locale);
 
-        #[cfg(not(target_arch = "wasm32"))]
+        #[cfg(all(not(target_arch = "wasm32"), feature = "self-update"))]
         crate::update::check_for_update();
 
         Self {
@@ -77,7 +77,7 @@ impl eframe::App for MacroSolverApp {
         self.solve_state
             .process_solver_events(&mut self.app_context);
 
-        #[cfg(not(target_arch = "wasm32"))]
+        #[cfg(all(not(target_arch = "wasm32"), feature = "self-update"))]
         crate::update::show_dialogues(ui, locale);
 
         if self.missing_stats_error_window_open {

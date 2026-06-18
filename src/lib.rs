@@ -11,7 +11,7 @@ mod fonts;
 mod solve;
 mod thread_pool;
 
-#[cfg(not(target_arch = "wasm32"))]
+#[cfg(all(not(target_arch = "wasm32"), feature = "self-update"))]
 mod update;
 
 #[cfg(target_arch = "wasm32")]
